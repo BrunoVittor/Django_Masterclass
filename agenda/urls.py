@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from contatos.views import index, detail_index, create_contact, delete_contact, update_contact
+from users.views import login_view, register_view
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -27,5 +28,7 @@ urlpatterns = [
 	path('create/', create_contact, name='create'),
 	path('delete/<int:id>', delete_contact, name='delete'),
 	path('update/<int:id>', update_contact, name='update'),
+	path('login', login_view, name='login'),
+	path('register', register_view, name='register')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

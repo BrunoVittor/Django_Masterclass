@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ContactForm
@@ -8,8 +9,12 @@ from .models import Contact
 # Create your views here.
 
 def index(request):
+	contact_list = Contact.objects.all().order_by('name')
+	search = request.GET.get('query')
+	if search:
+		contact_list = contact_list.filter(Q(name__icontains=search) | Q(email__icontains=search))
 	contex = {
-		'contacts': Contact.objects.all().order_by('name')
+		'contacts': contact_list
 	}
 	return render(request, 'posts/index.html', contex)
 
