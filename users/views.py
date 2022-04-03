@@ -26,6 +26,7 @@ def register_view(request):
 		return redirect('index')
 	else:
 		form = UserCreationForm()
+
 	return render(request, 'users/register.html', {'form': form})
 
 
